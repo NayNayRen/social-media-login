@@ -97,16 +97,20 @@ class UserController extends Controller
     // redirect from Spotify authorization back to app
     public function spotifyRedirect(){
         $spotifyUser = Socialite::driver('spotify')->user();
-        dd($spotifyUser);
-        // if they dont exist by email, add them
-        // $user = User::firstOrCreate([
-        //     'email' => $spotifyUser->email
-        // ], [
-        //     'name' => $spotifyUser->name,
-        //     'password' => Hash::make(Str::random(24))
-        // ]);
-        // // log in and redirect back home
-        // Auth::login($user);
-        // return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used Spotify to log in.');
+        // dd($spotifyUser);
+        if($spotifyUser->email === null){
+            return redirect('/')->with('flash-message', 'Sorry, there is no email associated with this media. Please register to continue.');
+        }else{
+            // if they dont exist by email, add them
+            $user = User::firstOrCreate([
+                'email' => $spotifyUser->email
+            ], [
+                'name' => $spotifyUser->name,
+                'password' => Hash::make(Str::random(24))
+            ]);
+            // log in and redirect back home
+            Auth::login($user);
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used Spotify to log in.');
+        }
     }
 }
