@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -76,17 +77,22 @@ class UserController extends Controller
 
     // redirect from GitHub authorization back to app
     public function githubRedirect(){
-        $githubUser = Socialite::driver('github')->user();
-        // if they dont exist by email, add them
-        $user = User::firstOrCreate([
-            'email' => $githubUser->email
-        ], [
-            'name' => $githubUser->name,
-            'password' => Hash::make(Str::random(24))
-        ]);
-        // log in and redirect back home
-        Auth::login($user);
-        return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used GitHub to log in.');
+        try{
+            $githubUser = Socialite::driver('github')->user();
+            // dd($githubUser);
+            // if they dont exist by email, add them
+            $user = User::firstOrCreate([
+                'email' => $githubUser->email
+            ], [
+                'name' => $githubUser->name,
+                'password' => Hash::make(Str::random(24))
+            ]);
+            // log in and redirect back home
+            Auth::login($user);
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst($githubUser->name) .' you have used GitHub to log in.');
+        }catch(Exception $e){
+            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
+        }
     }
 
     // redirect to Spotify log in authorization
@@ -96,21 +102,49 @@ class UserController extends Controller
 
     // redirect from Spotify authorization back to app
     public function spotifyRedirect(){
-        $spotifyUser = Socialite::driver('spotify')->user();
-        // dd($spotifyUser);
-        if($spotifyUser->email === null){
-            return redirect('/')->with('flash-message', 'Sorry, there is no email associated with this media. Please register to continue.');
-        }else{
-            // if they dont exist by email, add them
+        try{
+            $spotifyUser = Socialite::driver('spotify')->user();
+            // dd($spotifyUser);
+            if($spotifyUser->email === null){
+                return redirect('/')->with('flash-message', 'Sorry, there is no email associated with this media. Please register to continue.');
+            }else{
+                // if they dont exist by email, add them
+                $user = User::firstOrCreate([
+                    'email' => $spotifyUser->email
+                ], [
+                    'name' => $spotifyUser->name,
+                    'password' => Hash::make(Str::random(24))
+                ]);
+                // log in and redirect back home
+                Auth::login($user);
+                return redirect('/')->with('flash-message', 'Hello ' . ucfirst($spotifyUser->name) .' you have used Spotify to log in.');
+            }
+        }catch(Exception $e){
+            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
+        }
+    }
+
+    // redirect to Google log in authorization
+    public function googleSignIn(){
+        return Socialite::driver('google')->redirect();
+    }
+
+    // redirect from GitHub authorization back to app
+    public function googleRedirect(){
+        try{
+            $googleUser = Socialite::driver('google')->user();
+            // dd($googleUser);
             $user = User::firstOrCreate([
-                'email' => $spotifyUser->email
+                'email' => $googleUser->email
             ], [
-                'name' => $spotifyUser->name,
+                'name' => $googleUser->name,
                 'password' => Hash::make(Str::random(24))
             ]);
             // log in and redirect back home
             Auth::login($user);
-            return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used Spotify to log in.');
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst($googleUser->name) .' you have used Google to log in.');
+        }catch(Exception $e){
+            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
         }
     }
 }

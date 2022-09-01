@@ -19,3 +19,7 @@ Route::get('/sign-in/github/redirect', [UserController::class, 'githubRedirect']
 Route::get('/sign-in/spotify', [UserController::class, 'spotifySignIn']);
 // RETURNS BACK TO APP FROM SPOTIFY
 Route::get('/sign-in/spotify/redirect', [UserController::class, 'spotifyRedirect']);
+// GOES TO GOOGLE
+Route::get('/sign-in/google', [UserController::class, 'googleSignIn']);
+// RETURNS BACK TO APP FROM GOOGLE
+Route::get('/sign-in/google/redirect', [UserController::class, 'googleRedirect']);

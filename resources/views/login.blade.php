@@ -31,6 +31,8 @@
             </a>
             <a href="/sign-in/spotify">Sign In With Spotify <i class="fa fa-spotify" aria-hidden="true"></i>
             </a>
+            <a href="/sign-in/google">Sign In With Google <i class="fa fa-google" aria-hidden="true"></i>
+            </a>
         @endauth
     </form>
     @auth

@@ -21,6 +21,7 @@ class EventServiceProvider extends ServiceProvider
         // ADDING PROVIDER LISTENERS TO TRY OUT SOCIALITE PROVIDERS
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             \SocialiteProviders\Spotify\SpotifyExtendSocialite::class.'@handle',
+            \SocialiteProviders\Google\GoogleExtendSocialite::class.'@handle',
         ],
         // 
     ];
