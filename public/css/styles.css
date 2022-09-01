@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+.button {
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px 35px;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.error-message {
+    bottom: -19px;
+    color: red;
+    font-size: 14px;
+    left: 0;
+    position: absolute;
+}
+
+.flash-message {
+    -ms-flex-align: center;
+    -ms-flex-direction: column;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-box-shadow: 0 0 15px #000;
+    -webkit-transform: translateX(-50%);
+    -webkit-transition: bottom 500ms ease;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    bottom: -100%;
+    /* bottom: 100px; */
+    box-shadow: 0 0 15px #000;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    justify-content: center;
+    left: 50%;
+    min-height: 150px;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    transform: translateX(-50%);
+    transition: bottom 500ms ease;
+    width: 400px;
+    z-index: 4;
+}
+
+.flash-message p {
+    color: #000;
+    font-weight: bold;
+    margin: auto;
+    width: 90%;
+    /* outline: solid 1px blue; */
+}
+
+footer h4 {
+    color: red;
+    text-align: center;
+}
+
+.form {
+    -ms-flex-align: center;
+    -ms-flex-direction: column;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 400px;
+    /* outline: solid 1px blue; */
+}
+
+.form a {
+    color: #808080;
+    margin: 10px 0;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group input {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.form-group input:focus {
+    outline: none;
+}
+
+header h2,
+main h2 {
+    color: red;
+    text-align: center;
+}
+
+main h4 {
+    color: #fff;
+}
+
+.hide {
+    display: none;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+label {
+    color: #fff;
+}
+
+main {
+    background-color: #000;
+    min-height: 100%;
+    padding: 20px 0 10px 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+main p {
+    color: #fff;
+    margin: auto auto 15px auto;
+    width: 90%;
+    /* outline: solid 1px blue; */
+}
+
+@media (max-width: 400px) {
+    .form {
+        width: 100%;
+    }
+}
