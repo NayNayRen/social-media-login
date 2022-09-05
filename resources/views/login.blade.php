@@ -26,7 +26,9 @@
             <button type="submit" class="button hide">Log In <i class="fa fa-sign-in" aria-hidden="true"></i></button>
         @else
             <button type="submit" class="button">Log In <i class="fa fa-sign-in" aria-hidden="true"></i></button>
-            <a href={{ route('user.index') }}>Register</a>
+            <a href={{ route('user.index') }}>Register <i class="fa fa-file-text-o"
+                    aria-hidden="true"></i>
+            </a>
             <a href="/sign-in/github">Sign In With GitHub <i class="fa fa-github-alt" aria-hidden="true"></i>
             </a>
             <a href="/sign-in/spotify">Sign In With Spotify <i class="fa fa-spotify" aria-hidden="true"></i>
