@@ -89,15 +89,15 @@ class UserController extends Controller
             ]);
             // log in and redirect back home
             Auth::login($user);
-            return redirect('/')->with('flash-message', 'Hello ' . ucfirst($githubUser->name) .' you have used GitHub to log in.');
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used GitHub to log in.');
         }catch(Exception $e){
-            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
+            return redirect('/')->with('flash-message', 'An error has occured. Your sign in was canceled.');
         }
     }
 
     // redirect to Spotify log in authorization
     public function spotifySignIn(){
-        return Socialite::driver('spotify')->redirect();
+        return Socialite::driver('spotify')->scopes(['user-read-email'])->redirect();
     }
 
     // redirect from Spotify authorization back to app
@@ -105,22 +105,18 @@ class UserController extends Controller
         try{
             $spotifyUser = Socialite::driver('spotify')->user();
             // dd($spotifyUser);
-            if($spotifyUser->email === null){
-                return redirect('/')->with('flash-message', 'Sorry, there is no email associated with this media. Please register to continue.');
-            }else{
-                // if they dont exist by email, add them
-                $user = User::firstOrCreate([
-                    'email' => $spotifyUser->email
-                ], [
-                    'name' => $spotifyUser->name,
-                    'password' => Hash::make(Str::random(24))
-                ]);
-                // log in and redirect back home
-                Auth::login($user);
-                return redirect('/')->with('flash-message', 'Hello ' . ucfirst($spotifyUser->name) .' you have used Spotify to log in.');
-            }
+            // if they dont exist by email, add them
+            $user = User::firstOrCreate([
+                'email' => $spotifyUser->email
+            ], [
+                'name' => $spotifyUser->name,
+                'password' => Hash::make(Str::random(24))
+            ]);
+            // log in and redirect back home
+            Auth::login($user);
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used Spotify to log in.');
         }catch(Exception $e){
-            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
+            return redirect('/')->with('flash-message', 'An error has occurred. Your sign in was canceled.');
         }
     }
 
@@ -142,9 +138,9 @@ class UserController extends Controller
             ]);
             // log in and redirect back home
             Auth::login($user);
-            return redirect('/')->with('flash-message', 'Hello ' . ucfirst($googleUser->name) .' you have used Google to log in.');
+            return redirect('/')->with('flash-message', 'Hello ' . ucfirst(auth()->user()->name) .' you have used Google to log in.');
         }catch(Exception $e){
-            return redirect('/')->with('flash-message', 'Your sign in was canceled.');
+            return redirect('/')->with('flash-message', 'An error has occurred. Your sign in was canceled.');
         }
     }
 }
